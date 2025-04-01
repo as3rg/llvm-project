@@ -3,6 +3,7 @@
 #include "TargetInfo/BazTargetInfo.h"
 #include "llvm/MC/MCInstrInfo.h"
 #include "llvm/MC/MCRegisterInfo.h"
+#include "llvm/MC/MCSubtargetInfo.h"
 #include "llvm/MC/TargetRegistry.h"
 
 using namespace llvm;
@@ -12,6 +13,9 @@ using namespace llvm;
 
 #define GET_INSTRINFO_MC_DESC
 #include "BazGenInstrInfo.inc"
+
+#define GET_SUBTARGETINFO_MC_DESC
+#include "BazGenSubtargetInfo.inc"
 
 static MCRegisterInfo *createBazMCRegisterInfo(const Triple &TT) {
   BAZ_DUMP_MAGENTA
@@ -28,6 +32,12 @@ static MCInstrInfo *createBazMCInstrInfo() {
   return X;
 }
 
+static MCSubtargetInfo *createBazMCSubtargetInfo(const Triple &TT,
+  StringRef CPU, StringRef FS) {
+BAZ_DUMP_MAGENTA
+return createBazMCSubtargetInfoImpl(TT, CPU, /*TuneCPU*/ CPU, FS);
+}
+
 // We need to define this function for linking succeed
 extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeBazTargetMC() {
   BAZ_DUMP_MAGENTA
@@ -35,4 +45,6 @@ extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeBazTargetMC() {
   // Register the MC register info.
   TargetRegistry::RegisterMCRegInfo(TheBazTarget, createBazMCRegisterInfo);
   TargetRegistry::RegisterMCInstrInfo(TheBazTarget, createBazMCInstrInfo);
+
+  TargetRegistry::RegisterMCSubtargetInfo(TheBazTarget, createBazMCSubtargetInfo);
 }
