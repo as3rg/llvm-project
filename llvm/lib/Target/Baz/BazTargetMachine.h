@@ -7,6 +7,7 @@ namespace llvm {
 extern Target TheBazTarget;
 
 class BazTargetMachine : public CodeGenTargetMachineImpl {
+  std::unique_ptr<TargetLoweringObjectFile> TLOF;
 public:
   BazTargetMachine(const Target &T, const Triple &TT, StringRef CPU,
                    StringRef FS, const TargetOptions &Options,
@@ -15,5 +16,7 @@ public:
                    bool JIT);
 
   TargetPassConfig *createPassConfig(PassManagerBase &PM) override;
+
+  TargetLoweringObjectFile *getObjFileLowering() const override;
 };
 } // end namespace llvm
