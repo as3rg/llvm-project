@@ -1,6 +1,7 @@
 #include "BazTargetMachine.h"
 #include "Baz.h"
 #include "TargetInfo/BazTargetInfo.h"
+#include "llvm/CodeGen/TargetPassConfig.h"
 #include "llvm/MC/TargetRegistry.h"
 #include <optional>
 
@@ -23,4 +24,24 @@ BazTargetMachine::BazTargetMachine(const Target &T, const Triple &TT,
                         getEffectiveCodeModel(CM, CodeModel::Small), OL) {
   BAZ_DUMP_CYAN
   initAsmInfo();
+}
+
+namespace {
+
+class BazPassConfig : public TargetPassConfig {
+public:
+  BazPassConfig(BazTargetMachine &TM, PassManagerBase &PM)
+      : TargetPassConfig(TM, PM) {}
+
+  bool addInstSelector() override {
+    BAZ_DUMP_CYAN
+    return false;
+  }
+};
+  
+} // end anonymous namespace
+  
+TargetPassConfig *BazTargetMachine::createPassConfig(PassManagerBase &PM) {
+  BAZ_DUMP_CYAN
+  return new BazPassConfig(*this, PM);
 }
