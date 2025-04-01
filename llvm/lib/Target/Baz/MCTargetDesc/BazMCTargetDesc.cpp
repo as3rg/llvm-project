@@ -1,5 +1,6 @@
 #include "MCTargetDesc/BazInfo.h"
 #include "Baz.h"
+#include "BazInstPrinter.h"
 #include "BazMCAsmInfo.h"
 #include "TargetInfo/BazTargetInfo.h"
 #include "llvm/MC/MCDwarf.h"
@@ -49,6 +50,15 @@ BAZ_DUMP_MAGENTA
 return createBazMCSubtargetInfoImpl(TT, CPU, /*TuneCPU*/ CPU, FS);
 }
 
+static MCInstPrinter *createBazMCInstPrinter(const Triple &T,
+  unsigned SyntaxVariant,
+  const MCAsmInfo &MAI,
+  const MCInstrInfo &MII,
+  const MCRegisterInfo &MRI) {
+  BAZ_DUMP_MAGENTA
+  return new BazInstPrinter(MAI, MII, MRI);
+}
+
 // We need to define this function for linking succeed
 extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeBazTargetMC() {
   BAZ_DUMP_MAGENTA
@@ -59,4 +69,6 @@ extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeBazTargetMC() {
   TargetRegistry::RegisterMCInstrInfo(TheBazTarget, createBazMCInstrInfo);
 
   TargetRegistry::RegisterMCSubtargetInfo(TheBazTarget, createBazMCSubtargetInfo);
+
+  TargetRegistry::RegisterMCInstPrinter(TheBazTarget, createBazMCInstPrinter);
 }
