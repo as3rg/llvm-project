@@ -3,12 +3,14 @@ add_llvm_component_group(Baz)
 set(LLVM_TARGET_DEFINITIONS Baz.td)
 
 tablegen(LLVM BazGenRegisterInfo.inc -gen-register-info)
+tablegen(LLVM BazGenInstrInfo.inc -gen-instr-info)
 
 add_public_tablegen_target(BazCommonTableGen)
 
 add_llvm_target(BazCodeGen
   BazTargetMachine.cpp
   BazRegisterInfo.cpp
+  BazInstrInfo.cpp
 
 
   LINK_COMPONENTS
