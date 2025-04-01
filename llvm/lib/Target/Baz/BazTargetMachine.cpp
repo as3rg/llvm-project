@@ -22,4 +22,5 @@ BazTargetMachine::BazTargetMachine(const Target &T, const Triple &TT,
                         CPU, FS, Options, Reloc::Static,
                         getEffectiveCodeModel(CM, CodeModel::Small), OL) {
   BAZ_DUMP_CYAN
+  initAsmInfo();
 }
