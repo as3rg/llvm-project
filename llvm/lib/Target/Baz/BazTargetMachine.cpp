@@ -33,8 +33,13 @@ public:
   BazPassConfig(BazTargetMachine &TM, PassManagerBase &PM)
       : TargetPassConfig(TM, PM) {}
 
+  BazTargetMachine &getBazTargetMachine() const {
+    return getTM<BazTargetMachine>();
+  }
+
   bool addInstSelector() override {
     BAZ_DUMP_CYAN
+    addPass(createBazISelDag(getBazTargetMachine(), getOptLevel()));
     return false;
   }
 };

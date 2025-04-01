@@ -2,6 +2,7 @@
 
 #include "MCTargetDesc/BazMCTargetDesc.h"
 #include "llvm/Support/raw_ostream.h"
+#include "llvm/Target/TargetMachine.h"
 
 #define BAZ_DUMP(Color)                                                        \
   {                                                                            \
@@ -17,3 +18,12 @@
 #define BAZ_DUMP_CYAN BAZ_DUMP(llvm::raw_ostream::CYAN)
 #define BAZ_DUMP_MAGENTA BAZ_DUMP(llvm::raw_ostream::MAGENTA)
 #define BAZ_DUMP_WHITE BAZ_DUMP(llvm::raw_ostream::WHITE)
+
+namespace llvm {
+class BazTargetMachine;
+class FunctionPass;
+
+FunctionPass *createBazISelDag(BazTargetMachine &TM, CodeGenOptLevel OptLevel);
+
+} // namespace llvm
+  
