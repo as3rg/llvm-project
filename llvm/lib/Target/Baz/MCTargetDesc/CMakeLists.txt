@@ -1,5 +1,6 @@
 add_llvm_component_library(LLVMBazDesc
   BazMCTargetDesc.cpp
+  BazMCAsmInfo.cpp
 
   LINK_COMPONENTS
   MC

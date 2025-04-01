@@ -1,10 +1,13 @@
 #include "MCTargetDesc/BazInfo.h"
 #include "Baz.h"
+#include "BazMCAsmInfo.h"
 #include "TargetInfo/BazTargetInfo.h"
+#include "llvm/MC/MCDwarf.h"
 #include "llvm/MC/MCInstrInfo.h"
 #include "llvm/MC/MCRegisterInfo.h"
 #include "llvm/MC/MCSubtargetInfo.h"
 #include "llvm/MC/TargetRegistry.h"
+#include "llvm/Support/ErrorHandling.h"
 
 using namespace llvm;
 
@@ -24,6 +27,14 @@ static MCRegisterInfo *createBazMCRegisterInfo(const Triple &TT) {
   return X;
 }
 
+static MCAsmInfo *createBazMCAsmInfo(const MCRegisterInfo &MRI, const Triple &TT, const MCTargetOptions &Options) {
+  BAZ_DUMP_MAGENTA
+  MCAsmInfo *MAI = new BazELFMCAsmInfo(TT);
+  unsigned SP = MRI.getDwarfRegNum(Baz::R1, true);
+  MCCFIInstruction Inst = MCCFIInstruction::cfiDefCfa(nullptr, SP, 0);
+  MAI->addInitialFrameState(Inst);
+  return MAI;
+}
 
 static MCInstrInfo *createBazMCInstrInfo() {
   BAZ_DUMP_MAGENTA
@@ -42,6 +53,7 @@ return createBazMCSubtargetInfoImpl(TT, CPU, /*TuneCPU*/ CPU, FS);
 extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeBazTargetMC() {
   BAZ_DUMP_MAGENTA
   Target &TheBazTarget = getTheBazTarget();
+  RegisterMCAsmInfoFn X(TheBazTarget, createBazMCAsmInfo);
   // Register the MC register info.
   TargetRegistry::RegisterMCRegInfo(TheBazTarget, createBazMCRegisterInfo);
   TargetRegistry::RegisterMCInstrInfo(TheBazTarget, createBazMCInstrInfo);
