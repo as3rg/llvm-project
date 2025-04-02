@@ -4,11 +4,13 @@
 #include "llvm/CodeGen/TargetFrameLowering.h"
 
 namespace llvm {
+class BazSubtarget;
 
 class BazFrameLowering : public TargetFrameLowering {
 public:
-  explicit BazFrameLowering()
-      : TargetFrameLowering(TargetFrameLowering::StackGrowsDown, Align(4), 0) {
+  BazFrameLowering(const BazSubtarget &STI)
+      : TargetFrameLowering(TargetFrameLowering::StackGrowsDown, Align(4), 0),
+        STI(STI) {
     BAZ_DUMP_GREEN
   }
 
@@ -23,6 +25,9 @@ public:
   /// frame pointer register. For most targets this is true only if the function
   /// has variable sized allocas or if frame pointer elimination is disabled.
   bool hasFPImpl(const MachineFunction &MF) const override { return false; }
+
+private:
+  const BazSubtarget &STI;
 };
 
 } // namespace llvm

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Baz.h"
+#include "BazFrameLowering.h"
 #include "BazISelLowering.h"
 #include "llvm/CodeGen/TargetSubtargetInfo.h"
 
@@ -12,6 +13,7 @@ namespace llvm {
 
 class BazSubtarget : public BazGenSubtargetInfo {
   BazTargetLowering TLInfo;
+  BazFrameLowering FrameLowering;
 
 public:
   BazSubtarget(const Triple &TT, const std::string &CPU, const std::string &FS,
@@ -24,6 +26,11 @@ public:
   const BazTargetLowering *getTargetLowering() const override {
     BAZ_DUMP_CYAN
     return &TLInfo;
+  }
+
+  const BazFrameLowering *getFrameLowering() const override {
+    BAZ_DUMP_CYAN
+    return &FrameLowering;
   }
 };
 
