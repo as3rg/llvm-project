@@ -3,6 +3,7 @@
 #include "Baz.h"
 #include "BazFrameLowering.h"
 #include "BazISelLowering.h"
+#include "BazRegisterInfo.h"
 #include "llvm/CodeGen/TargetSubtargetInfo.h"
 
 #define GET_SUBTARGETINFO_HEADER
@@ -14,6 +15,7 @@ namespace llvm {
 class BazSubtarget : public BazGenSubtargetInfo {
   BazTargetLowering TLInfo;
   BazFrameLowering FrameLowering;
+  BazRegisterInfo RegInfo;
 
 public:
   BazSubtarget(const Triple &TT, const std::string &CPU, const std::string &FS,
@@ -31,6 +33,11 @@ public:
   const BazFrameLowering *getFrameLowering() const override {
     BAZ_DUMP_CYAN
     return &FrameLowering;
+  }
+
+  const BazRegisterInfo *getRegisterInfo() const override {
+    BAZ_DUMP_CYAN
+    return &RegInfo;
   }
 };
 
