@@ -22,7 +22,19 @@
 namespace llvm {
 class BazTargetMachine;
 class FunctionPass;
+class BazSubtarget;
+class AsmPrinter;
+class InstructionSelector;
+class MCInst;
+class MCOperand;
+class MachineInstr;
+class MachineOperand;
+class PassRegistry;
 
+bool lowerBazMachineInstrToMCInst(const MachineInstr *MI, MCInst &OutMI,
+                                  AsmPrinter &AP);
+bool LowerBazMachineOperandToMCOperand(const MachineOperand &MO,
+                                       MCOperand &MCOp, const AsmPrinter &AP);
 FunctionPass *createBazISelDag(BazTargetMachine &TM, CodeGenOptLevel OptLevel);
 
 } // namespace llvm

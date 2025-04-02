@@ -38,6 +38,11 @@ public:
   StringRef getPassName() const override { return "Baz Assembly Printer"; }
 
   bool lowerPseudoInstExpansion(const MachineInstr *MI, MCInst &Inst);
+
+  // Used in pseudo lowerings
+  bool lowerOperand(const MachineOperand &MO, MCOperand &MCOp) const {
+    return LowerBazMachineOperandToMCOperand(MO, MCOp, *this);
+  }
 };
 
 } // end anonymous namespace
@@ -53,6 +58,10 @@ void BazAsmPrinter::emitInstruction(const MachineInstr *MI) {
     EmitToStreamer(*OutStreamer, OutInst);
     return;
   }
+
+  MCInst TmpInst;
+  if (!lowerBazMachineInstrToMCInst(MI, TmpInst, *this))
+    EmitToStreamer(*OutStreamer, TmpInst);
 }
 
 // Force static initialization.
