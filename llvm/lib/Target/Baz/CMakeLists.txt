@@ -17,6 +17,7 @@ add_llvm_target(BazCodeGen
   BazSubtarget.cpp
   BazAsmPrinter.cpp
   BazISelDagToDag.cpp
+  BazISelLowering.cpp
 
 
   LINK_COMPONENTS

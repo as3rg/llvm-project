@@ -10,8 +10,8 @@ using namespace llvm;
 #define GET_SUBTARGETINFO_CTOR
 #include "BazGenSubtargetInfo.inc"
 
-BazSubtarget::BazSubtarget(const StringRef &CPU, const StringRef &TuneCPU,
-                           const StringRef &FS, const TargetMachine &TM)
-    : BazGenSubtargetInfo(TM.getTargetTriple(), CPU, TuneCPU, FS) {
+BazSubtarget::BazSubtarget(const Triple &TT, const std::string &CPU,
+                           const std::string &FS, const TargetMachine &TM)
+    : BazGenSubtargetInfo(TT, CPU, /*TuneCPU=*/CPU, FS), TLInfo(TM, *this) {
   BAZ_DUMP_CYAN
 }
