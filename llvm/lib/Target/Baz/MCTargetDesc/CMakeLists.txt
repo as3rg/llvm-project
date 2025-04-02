@@ -4,6 +4,7 @@ add_llvm_component_library(LLVMBazDesc
   BazInstPrinter.cpp
   BazMCCodeEmitter.cpp
   BazAsmBackend.cpp
+  BazELFObjectWriter.cpp
 
   LINK_COMPONENTS
   MC

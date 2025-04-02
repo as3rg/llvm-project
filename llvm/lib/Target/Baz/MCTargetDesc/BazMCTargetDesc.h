@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 
 namespace llvm {
 class MCCodeEmitter;
@@ -16,6 +17,7 @@ MCCodeEmitter *createBazMCCodeEmitter(const MCInstrInfo &MCII, MCContext &Ctx);
 MCAsmBackend *createBazAsmBackend(const Target &T, const MCSubtargetInfo &STI,
     const MCRegisterInfo &MRI,
     const MCTargetOptions &Options);
+std::unique_ptr<MCObjectTargetWriter> createBazELFObjectWriter(bool Is64Bit, uint8_t OSABI);
 } // namespace llvm
 
 #define GET_REGINFO_ENUM
