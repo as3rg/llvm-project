@@ -64,11 +64,14 @@ extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeBazTargetMC() {
   BAZ_DUMP_MAGENTA
   Target &TheBazTarget = getTheBazTarget();
   RegisterMCAsmInfoFn X(TheBazTarget, createBazMCAsmInfo);
-  // Register the MC register info.
+
   TargetRegistry::RegisterMCRegInfo(TheBazTarget, createBazMCRegisterInfo);
+
   TargetRegistry::RegisterMCInstrInfo(TheBazTarget, createBazMCInstrInfo);
 
   TargetRegistry::RegisterMCSubtargetInfo(TheBazTarget, createBazMCSubtargetInfo);
 
   TargetRegistry::RegisterMCInstPrinter(TheBazTarget, createBazMCInstPrinter);
+
+  TargetRegistry::RegisterMCCodeEmitter(TheBazTarget, createBazMCCodeEmitter);
 }

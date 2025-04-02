@@ -9,6 +9,7 @@ tablegen(LLVM BazGenMCPseudoLowering.inc -gen-pseudo-lowering)
 tablegen(LLVM BazGenDAGISel.inc -gen-dag-isel)
 tablegen(LLVM BazGenCallingConv.inc -gen-callingconv)
 tablegen(LLVM BazGenAsmWriter.inc -gen-asm-writer)
+tablegen(LLVM BazGenMCCodeEmitter.inc -gen-emitter)
 
 add_public_tablegen_target(BazCommonTableGen)
 

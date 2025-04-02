@@ -2,6 +2,7 @@ add_llvm_component_library(LLVMBazDesc
   BazMCTargetDesc.cpp
   BazMCAsmInfo.cpp
   BazInstPrinter.cpp
+  BazMCCodeEmitter.cpp
 
   LINK_COMPONENTS
   MC
