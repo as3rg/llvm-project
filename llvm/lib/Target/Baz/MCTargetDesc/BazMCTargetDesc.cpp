@@ -74,4 +74,6 @@ extern "C" LLVM_EXTERNAL_VISIBILITY void LLVMInitializeBazTargetMC() {
   TargetRegistry::RegisterMCInstPrinter(TheBazTarget, createBazMCInstPrinter);
 
   TargetRegistry::RegisterMCCodeEmitter(TheBazTarget, createBazMCCodeEmitter);
+
+  TargetRegistry::RegisterMCAsmBackend(TheBazTarget, createBazAsmBackend);
 }
