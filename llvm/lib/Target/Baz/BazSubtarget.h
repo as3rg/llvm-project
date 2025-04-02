@@ -3,8 +3,10 @@
 #include "Baz.h"
 #include "BazFrameLowering.h"
 #include "BazISelLowering.h"
+#include "BazInstrInfo.h"
 #include "BazRegisterInfo.h"
 #include "llvm/CodeGen/TargetSubtargetInfo.h"
+#include "llvm/CodeGen/SelectionDAGTargetInfo.h"
 
 #define GET_SUBTARGETINFO_HEADER
 #include "BazGenSubtargetInfo.inc"
@@ -16,6 +18,8 @@ class BazSubtarget : public BazGenSubtargetInfo {
   BazTargetLowering TLInfo;
   BazFrameLowering FrameLowering;
   BazRegisterInfo RegInfo;
+  BazInstrInfo InstrInfo;
+  SelectionDAGTargetInfo TSInfo;
 
 public:
   BazSubtarget(const Triple &TT, const std::string &CPU, const std::string &FS,
@@ -38,6 +42,13 @@ public:
   const BazRegisterInfo *getRegisterInfo() const override {
     BAZ_DUMP_CYAN
     return &RegInfo;
+  }
+
+  const BazInstrInfo *getInstrInfo() const override { return &InstrInfo; }
+
+  const SelectionDAGTargetInfo *getSelectionDAGInfo() const override {
+    BAZ_DUMP_CYAN
+    return &TSInfo;
   }
 };
 
