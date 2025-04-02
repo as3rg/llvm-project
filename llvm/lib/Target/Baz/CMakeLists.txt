@@ -7,6 +7,7 @@ tablegen(LLVM BazGenInstrInfo.inc -gen-instr-info)
 tablegen(LLVM BazGenSubtargetInfo.inc -gen-subtarget)
 tablegen(LLVM BazGenMCPseudoLowering.inc -gen-pseudo-lowering)
 tablegen(LLVM BazGenDAGISel.inc -gen-dag-isel)
+tablegen(LLVM BazGenCallingConv.inc -gen-callingconv)
 
 add_public_tablegen_target(BazCommonTableGen)
 

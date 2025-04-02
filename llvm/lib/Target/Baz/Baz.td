@@ -1,6 +1,7 @@
 include "llvm/Target/Target.td"
 include "BazRegisterInfo.td"
 include "BazInstrInfo.td"
+include "BazCallingConv.td"
 
 class Proc<string Name, list<SubtargetFeature> Features>
  : Processor<Name, NoItineraries, Features>;
