@@ -1,0 +1,4 @@
+BUILTIN(bazPutPixel, "vUiUiUi", "nc")
+BUILTIN(bazFlush, "v", "nc")
+
+#undef BUILTIN
