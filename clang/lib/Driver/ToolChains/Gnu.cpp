@@ -232,6 +232,8 @@ static const char *getLDMOption(const llvm::Triple &T, const ArgList &Args) {
   case llvm::Triple::aarch64_be:
     return "aarch64linuxb";
   case llvm::Triple::arm:
+  case llvm::Triple::baz:
+    return "elf32_baz";
   case llvm::Triple::thumb:
   case llvm::Triple::armeb:
   case llvm::Triple::thumbeb:
