@@ -36,3 +36,11 @@ let isAsCheapAsAMove = 1, isCodeGenOnly = 1, isReMaterializable = 1, r2 = 0 in
 def MOVLI : BazInst<0xF0, (outs GPR:$r1), (ins simm16:$r3_imm),
                      "MOVli $r1 $r3_imm",
                      [(set GPR:$r1, simm16:$r3_imm)]>;
+
+// flush
+let r1 = 0, r2 = 0, r3_imm = 0 in
+def FLUSH : BazInst<0xF1, (outs), (ins), "FLUSH", [(int_baz_flush)]>;
+
+// putpixel
+def PUTPIXEL : BazInst<0xF2, (outs), (ins GPR:$r1, GPR:$r2, GPR:$r3_imm),
+                      "PUTPIXEL $r1 $r2 $r3_imm", [(int_baz_putpixel GPR:$r1, GPR:$r2, GPR:$r3_imm)]>;
